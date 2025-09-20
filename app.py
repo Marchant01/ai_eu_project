@@ -18,13 +18,13 @@ st.write("Welcome to the AI Project Predictor App.\n"
 
 name = st.text_input("Namn på projektet:")
 geographical_extent = st.selectbox("Geographical extent:", df["Geographical extent"].unique())
-COFOG1 = st.selectbox("COFOG1-kod:", df["Functions of Government (COFOG level I)"].unique())
-COFOG2 = st.selectbox("COFOG2-kod:", df["Functions of Government (COFOG level II)"].unique())
-process_type = st.selectbox("Typ av process:", df["Process type"].unique())
-application_type = st.selectbox("Typ av ansökan:", df["Application type"].unique())
-cross_border = st.selectbox("Gränsöverskridande:", ["Ja", "Nej"])
-cross_sector = st.selectbox("Tvärsektoriell:", ["Ja", "Nej"])
-interaction = st.selectbox("Interaktion:", df["Interaction"].unique())
+COFOG1 = st.selectbox("COFOG1 level 1", df["Functions of Government (COFOG level I)"].unique())
+COFOG2 = st.selectbox("COFOG2 level 2:", df["Functions of Government (COFOG level II)"].unique())
+process_type = st.selectbox("Process type:", df["Process type"].unique())
+application_type = st.selectbox("Application type:", df["Application type"].unique())
+cross_border = st.selectbox("Cross border:", ["Yes", "No"])
+cross_sector = st.selectbox("Cross sector:", ["Yes", "No"])
+interaction = st.selectbox("Type of interaction:", df["Interaction"].unique())
 PSI_and_services = st.checkbox("PSI and services:", value=False)
 imporove_managment = st.checkbox("Improve managment:", value=False)
 process_and_systems = st.checkbox("Process and systems:", value=False)
@@ -50,8 +50,8 @@ if st.button("Predict Effort"):
         "Functions of Government (COFOG level II)": COFOG2,
         "Process type": process_type,
         "Application type": application_type,
-        "Cross-border": 1 if cross_border == "Ja" else 0,
-        "Cross-sector": 1 if cross_sector == "Ja" else 0,
+        "Cross-border": 1 if cross_border == "Yes" else 0,
+        "Cross-sector": 1 if cross_sector == "Yes" else 0,
         "Interaction": interaction,
         "PSI and services": [1 if PSI_and_services else 0],
         "Improve management": [1 if imporove_managment else 0],
@@ -77,5 +77,5 @@ if st.button("Predict Effort"):
     print(match_count)
     total_count = len(targets)
     percentage = (match_count / total_count) * 100
-    
+
     st.write(f"Your project is expected to reach the stage of: {predicted_status}, the same as {match_count} or {round(percentage)}% of other projects registered by the EU commission")
