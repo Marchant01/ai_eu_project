@@ -1,12 +1,18 @@
 import streamlit as st
 import pandas as pd
 from joblib import load
+import warnings
+import numpy as np
+
+warnings.filterwarnings("ignore", message="X has feature names")
 
 model = load("best_model.pkl")
+reg_model = load("reg_model.pkl")
 features = load("features.pkl")
 targets = load("targets.pkl")
 df = pd.read_excel("pstw_dataset.xlsx")
 
+# Turns features to a list object
 features = features.columns.tolist()
 
 st.title("AI Project Prediction")
@@ -16,7 +22,7 @@ st.write("Welcome to the AI Project Predictor App.\n"
 
 
 
-name = st.text_input("Namn på projektet:")
+name = st.text_input("Name of the project")
 geographical_extent = st.selectbox("Geographical extent:", df["Geographical extent"].unique())
 COFOG1 = st.selectbox("COFOG1 level 1", df["Functions of Government (COFOG level I)"].unique())
 COFOG2 = st.selectbox("COFOG2 level 2:", df["Functions of Government (COFOG level II)"].unique())
@@ -28,12 +34,12 @@ interaction = st.selectbox("Type of interaction:", df["Interaction"].unique())
 PSI_and_services = st.checkbox("PSI and services:", value=False)
 imporove_managment = st.checkbox("Improve managment:", value=False)
 process_and_systems = st.checkbox("Process and systems:", value=False)
-ai_class1 = st.selectbox("AI classification 1:", df["AI Classification (I)"].unique())
-ai_class2_main = st.selectbox("AI classification 2 main:", df["AI Classification Subdomain (II) (main)"].unique())
-ai_class2_other = st.selectbox("AI classification 2 other:", df["AI Classification Subdomain (II) (Other I)"].unique())
-keywords = st.selectbox("AI Keywords:", df["AI Keywords"].unique())
-collaboration_type = st.selectbox("Collaboration:", df["Collaboration type"].unique())
-funding = st.selectbox("Funding:", df["Funding source"].unique())
+ai_class1 = st.selectbox("AI classification 1:", df["AI Classification (I)"].dropna().unique())
+ai_class2_main = st.selectbox("AI classification 2 main:", df["AI Classification Subdomain (II) (main)"].dropna().unique())
+ai_class2_other = st.selectbox("AI classification 2 other:", df["AI Classification Subdomain (II) (Other I)"].dropna().unique())
+keywords = st.selectbox("AI Keywords:", df["AI Keywords"].dropna().unique())
+collaboration_type = st.selectbox("Collaboration:", df["Collaboration type"].dropna().unique())
+funding = st.selectbox("Funding:", df["Funding source"].dropna().unique())
 
 status = {
         0: 'Implemented',
@@ -73,9 +79,13 @@ if st.button("Predict Effort"):
     predicted_status = status.get(prediction[0])
 
     # For viewing the amount and percentage of matching status
-    match_count = (targets == prediction[0]).sum()
-    print(match_count)
-    total_count = len(targets)
+    match_count = np.sum(targets == prediction[0])
+    total_count = np.size(targets)
     percentage = (match_count / total_count) * 100
+    
+    duration_pred_years = reg_model.predict(input_data)[0]
 
-    st.write(f"Your project is expected to reach the stage of: {predicted_status}, the same as {match_count} or {round(percentage)}% of other projects registered by the EU commission")
+    st.subheader("Results")
+    st.write(f"**Your project is predictet to reach the status of:** {predicted_status} "
+         f"(similar to {match_count} other projects, {percentage:.1f}%)")
+    st.write(f"Estimated Time to Implementation: **~{round(duration_pred_years)} years**")
