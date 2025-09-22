@@ -86,6 +86,6 @@ if st.button("Predict Effort"):
     duration_pred_years = reg_model.predict(input_data)[0]
 
     st.subheader("Results")
-    st.write(f"**Your project is predictet to reach the status of:** {predicted_status} "
+    st.write(f"**Your project {name}, is predictet to reach the status of:** {predicted_status} "
          f"(similar to {match_count} other projects, {percentage:.1f}%)")
     st.write(f"Estimated Time to Implementation: **~{round(duration_pred_years)} years**")
