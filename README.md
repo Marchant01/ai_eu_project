@@ -27,5 +27,5 @@ Streamlit application: [AI Project Predictor](ai-eu-project.streamlit.app)
 - openpyxl
 - sklearn
 
-## Made by
+## Made by:
 Daniel Theoren & Celvin Marchant
