@@ -26,3 +26,6 @@ Streamlit application: [AI Project Predictor](ai-eu-project.streamlit.app)
 - joblib
 - openpyxl
 - sklearn
+
+## Made by
+Daniel Theoren & Celvin Marchant
