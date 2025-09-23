@@ -1,51 +1,28 @@
-# ai_eu_project
+# AI Project Predictor
 
-## Columns that we'll use (first evaluation)
+Welcome to the AI Project Predictor, a Streamlit-based application that uses machine learning to forecast the implementation status and estimated duration of public sector AI projects. This tool is designed to help policymakers, analysts, and project managers assess the viability of AI initiatives based on key project attributes.
 
-Index,Column Name
-1,Procurement (EU Model Contractual AI)
-4,Geographical extent
-5,Geographical coverage (country)
-7,Responsible organisation
-8,Responsible organisation category
-9,Functions of Government (COFOG level I)
-10,Functions of Government (COFOG level II)
-11,Status
-14,Process type
-15,Application type
-16,Cross Border
-17,Cross Sector
-20,Interaction
-21,Improved Public Service
-22,Personalized Services
-23,Public (citizen)-centered services
-24,Increase quality of PSI and services
-25,More responsive, efficient, and cost-effective public services
-26,New services or channels
-27,Improved Administrative Efficiency
-28,Cost-reduction
-29,Responsiveness of government operation
-30,Improved management of public resources
-31,Increased quality of processes and systems
-35,Open government capabilities
-36,Increased transparency of public sector operations
-39,Source
-40,AI Classification (I)
-41,AI Classification Subdomain (II) (main)
-42,AI Classification Subdomain (II) (Other I)
-45,AI Keywords
-46,Collaboration type
-48,Funding source
+The project uses and is based on a dataset by [Public Sector Tech Watch](https://interoperable-europe.ec.europa.eu/collection/public-sector-tech-watch) managed by the European Commission.
 
-## TODO:
-Set up dataset for training
+Streamlit application: [AI Project Predictor](ai-eu-project.streamlit.app)
 
-Train model(s) with the first iteration of columns from the dataset
+## Features
 
-Evaluate model(s)
+### Predicts whether an AI project will be:
+  - Implemented
+  - Pilot
+  - In development
+  - Planned
+  - Not in use
 
-See if we need to remove columns
+- Estimates time to implementation (in years)
+- Interactive form for entering project details
+- Uses pre-trained classification and reression models
 
-Make a streamlit
-
-Remove slask-script before handing in the assignment
+### Requirements
+- 3.8+
+- pandas
+- numpy
+- joblib
+- openpyxl
+- sklearn

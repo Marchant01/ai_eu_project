@@ -20,7 +20,7 @@ for col in df.columns:
 # Turns features to a list object
 features = features.columns.tolist()
 
-st.title("AI Project Prediction")
+st.title("AI Project Predictor")
 st.write("Welcome to the AI Project Predictor App.\n"
          + "With the help a number of key factors this application will predict if your AI project will \n "
          + "make it into implementation.\n\n Please enter the project details below:")
