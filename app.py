@@ -15,7 +15,8 @@ df = pd.read_excel("pstw_dataset.xlsx")
 for col in df.columns:
     if df[col].dtype == 'object':
         df[col] = df[col].astype(str).str.strip().str.lower()
-
+        df[col] = df[col].replace({'': np.nan, 'nan': np.nan})
+        
 # Turns features to a list object
 features = features.columns.tolist()
 
@@ -25,7 +26,7 @@ st.write("Welcome to the AI Project Predictor App.\n"
          + "make it into implementation.\n\n Please enter the project details below:")
 
 
-
+# User input
 name = st.text_input("Name of the project")
 geographical_extent = st.selectbox("Geographical extent:", df["Geographical extent"].unique())
 COFOG1 = st.selectbox("COFOG1 level 1", df["Functions of Government (COFOG level I)"].unique())
@@ -90,6 +91,6 @@ if st.button("Predict Effort"):
     duration_pred_years = reg_model.predict(input_data)[0]
 
     st.subheader("Results")
-    st.write(f"**Your project is predictet to reach the status of:** {predicted_status} "
+    st.write(f"**Your project {name}, is predictet to reach the status of:** {predicted_status} "
          f"(similar to {match_count} other projects, {percentage:.1f}%)")
     st.write(f"Estimated Time to Implementation: **~{round(duration_pred_years)} years**")
