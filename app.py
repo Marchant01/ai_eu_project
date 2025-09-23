@@ -12,6 +12,10 @@ features = load("features.pkl")
 targets = load("targets.pkl")
 df = pd.read_excel("pstw_dataset.xlsx")
 
+for col in df.columns:
+    if df[col].dtype == 'object':
+        df[col] = df[col].astype(str).str.strip().str.lower()
+
 # Turns features to a list object
 features = features.columns.tolist()
 
